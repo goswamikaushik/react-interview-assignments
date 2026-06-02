@@ -146,7 +146,7 @@ _Build one per day for 10 days. You will be interview-ready._
 
 ## Author
 
-**Kaushik Goswami** — Software Engineer  
+**Kaushik Goswami** — Software Developer  
 🌐 [goswamikaushik.dev](https://goswamikaushik.dev/)  
 💼 [linkedin.com/in/goswamikaushik](https://www.linkedin.com/in/goswamikaushik/)
 
