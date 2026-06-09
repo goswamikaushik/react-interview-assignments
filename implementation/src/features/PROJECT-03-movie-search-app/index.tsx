@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import type { MoviesData } from "./type";
 import { useDebounce } from "../../hooks";
+import { Spinner } from "../../icons";
 
 const MovieSearch = () => {
   const [moviesData, setMoviesData] = useState<MoviesData>({
     data: [],
     isLoading: false,
     search: "",
+    bookmarked: [],
   });
 
   const searchText = moviesData.search;
-  console.log("debpunce-text", moviesData.search);
   const movies = moviesData.data;
   const isLoading = moviesData.isLoading;
   const debounceText = useDebounce(searchText);
-
-  console.log("debpunce-text", debounceText);
+  const bookmarkedIds = moviesData.bookmarked;
 
   useEffect(() => {
     const fetchMovies = async (query: string) => {
@@ -42,34 +42,73 @@ const MovieSearch = () => {
     fetchMovies(debounceText);
   }, [debounceText]);
 
-  const onChange = (v: string, action: "search") => {
-    setMoviesData((prev) => ({ ...prev, [action]: v }));
+  const onChange = (v: string, action: "search" | "bookmark") => {
+    switch (action) {
+      case "bookmark":
+        return setMoviesData((prev) => {
+          const existIds = prev.bookmarked;
+          return {
+            ...prev,
+            bookmarked: existIds.includes(v)
+              ? existIds.filter((id) => id !== v)
+              : [...existIds, v],
+          };
+        });
+      default:
+        return setMoviesData((prev) => ({ ...prev, [action]: v }));
+    }
   };
 
+  const isBookMarked = (id: string) => bookmarkedIds.includes(id);
+
   return (
-    <div>
+    <div className="flex flex-col items-center m-10">
+      <h1 className="text-4xl font-bold">Movies</h1>
       <input
         type="text"
+        className="self-end p-1 border-black border-2 rounded-md"
         autoFocus
         onChange={(e) => onChange(e.target.value, "search")}
         value={searchText}
         placeholder="Search Movie By Title"
       />
-      {!searchText && <p>Search for a movie to get started</p>}
-      <div className="movie-list">
+      {!searchText && (
+        <p
+          className="p-1 cursor-pointer border-2 border-amber-400 bg-amber-200 rounded-md"
+          onClick={() => onChange("hulk", "search")}
+        >
+          Search for a movie to get started
+        </p>
+      )}
+      <div className="grid grid-cols-5 gap-2 w-full mt-10">
         {isLoading ? (
-          <p>Fetching Movies</p>
+          <div className="flex items-center col-span-5 min-h-52 gap-1 justify-center">
+            <span>Fetching Movies</span>
+            <Spinner />
+          </div>
         ) : (
           movies.map((m) => (
-            <div key={m.imdbID}>
-              <img src={m.Poster} alt={`${m.Title}'s Image`} />
-              <p>{m.Title}</p>
-              <p>{`${m.Type} - ${m.Year}`}</p>
+            <div key={m.imdbID} className="rounded-t-md border bg-amber-50">
+              <img
+                src={m.Poster}
+                alt={`${m.Title}'s Image`}
+                className="w-full h-96 rounded-t-md"
+              />
+              <div className="text-center my-4">
+                <p className="text-xl font-bold ">{m.Title}</p>
+                <p>{`(${m.Type} - ${m.Year})`}</p>
+              </div>
+              <button
+                onClick={() => onChange(m.imdbID, "bookmark")}
+                className="border-t  w-full p-0.5 bg-green-400 font-semibold"
+              >
+                {isBookMarked(m.imdbID) ? "Bookmarked" : "Bookmark"}
+              </button>
             </div>
           ))
         )}
-        {searchText && !isLoading && movies.length === 0 && (
-          <p>{`No results found for '${searchText}'`}</p>
+        {debounceText && !isLoading && movies.length === 0 && (
+          <p className="col-span-5 mt-32 text-center">{`No results found for '${searchText}'`}</p>
         )}
       </div>
     </div>
@@ -78,19 +117,6 @@ const MovieSearch = () => {
 
 export default MovieSearch;
 
-// As user types → debounced search fires after 300ms
-// Show loading spinner during API call (or during filter if using mock)
-// Show error if API fails
-// Show "No results found for '...'" if API returns empty
-// Results rendered as a grid of MovieCard components
-// F2 — MovieCard
-// Each card shows:
-
-// Movie poster (Poster field) — fallback image if poster is "N/A"
-// Title
-// Year
-// IMDb rating (if available)
-// Bookmark button (filled icon = bookmarked, outline = not bookmarked)
 // Clicking the card navigates to /movie/:imdbID
 // Clicking bookmark toggles without navigating
 // F3 — Movie Detail Page (/movie/:imdbID)

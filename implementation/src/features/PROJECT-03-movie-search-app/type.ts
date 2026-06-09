@@ -2,6 +2,7 @@ export interface MoviesData {
   data: Movie[];
   isLoading: boolean;
   search: string;
+  bookmarked: string[];
 }
 
 export interface Movie {
