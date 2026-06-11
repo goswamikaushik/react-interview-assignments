@@ -1,3 +1,4 @@
-import MovieSearch from "./PROJECT-03-movie-search-app";
+import MovieSearch from "./project-03-movie-search-app";
+import MovieDetails from "./project-03-movie-search-app/movie-details";
 
-export { MovieSearch };
+export { MovieSearch, MovieDetails };
