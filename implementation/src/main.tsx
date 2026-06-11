@@ -7,10 +7,10 @@ import { BookMarkProvider } from "./context/bookmark/index.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BookMarkProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <BookMarkProvider>
         <App />
-      </BrowserRouter>
-    </BookMarkProvider>
+      </BookMarkProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

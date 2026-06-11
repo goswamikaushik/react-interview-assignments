@@ -93,10 +93,10 @@ const MovieSearch = () => {
                 </div>
                 <button
                   onClick={(e) => {
-                    e.stopPropagation();
+                    e.preventDefault();
                     toggleBookmark(m);
                   }}
-                  className="border-t  w-full p-0.5 bg-green-400 font-semibold"
+                  className="border-t cursor-pointer  w-full p-0.5 bg-green-400 font-semibold"
                 >
                   {isBookmarked(m.imdbID) ? "Bookmarked" : "Bookmark"}
                 </button>
