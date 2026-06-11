@@ -6,10 +6,10 @@ import { Link } from "react-router";
 import { SITE_ROUTES } from "../../constants";
 import { useBookmarks } from "../../context/bookmark/use-bookmarks";
 
-const { PROJECT_03 } = SITE_ROUTES;
+const { PROJECT_03, BOOKMARKS } = SITE_ROUTES;
 
 const MovieSearch = () => {
-  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { isBookmarked, toggleBookmark, bookmarks } = useBookmarks();
   const [moviesData, setMoviesData] = useState<MoviesData>({
     data: [],
     isLoading: false,
@@ -55,7 +55,13 @@ const MovieSearch = () => {
 
   return (
     <div className="flex flex-col items-center m-10 mx-24">
-      <h1 className="text-6xl font-bold">Movies</h1>
+      <h1 className="text-7xl font-bold">Movies</h1>
+      <Link
+        className="border border-blue-400 px-2 py-0.5 font-semibold rounded-md bg-blue-200"
+        to={`${PROJECT_03}${BOOKMARKS}`}
+      >
+        Bookmarks {`(${bookmarks.length})`}
+      </Link>
       <input
         type="text"
         className="self-end p-1 border-black border-2 rounded-md"
@@ -96,7 +102,7 @@ const MovieSearch = () => {
                     e.preventDefault();
                     toggleBookmark(m);
                   }}
-                  className="border-t cursor-pointer  w-full p-0.5 bg-green-400 font-semibold"
+                  className={`border-t cursor-pointer  w-full p-0.5 font-semibold ${isBookmarked(m.imdbID) ? "bg-blue-300" : "bg-green-400"} `}
                 >
                   {isBookmarked(m.imdbID) ? "Bookmarked" : "Bookmark"}
                 </button>
