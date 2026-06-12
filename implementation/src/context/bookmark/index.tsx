@@ -9,12 +9,14 @@ import type {
   BookmarkContextType,
   Movie,
 } from "../../features/project-03-movie-search-app/type";
+import { localStorageAction } from "../../utils";
 
 const BookmarkContext = createContext<BookmarkContextType | null>(null);
 
 const init = (): Movie[] => {
+  const { get } = localStorageAction();
   try {
-    const saved = localStorage.getItem("bookmarks");
+    const saved = get("bookmarks");
     return saved ? JSON.parse(saved) : [];
   } catch {
     return [];
@@ -22,6 +24,8 @@ const init = (): Movie[] => {
 };
 
 const BookMarkProvider: FC<PropsWithChildren> = ({ children }) => {
+  const { set } = localStorageAction();
+
   const [bookmarks, setBookmarks] = useState<Movie[]>(init);
 
   const toggleBookmark = (movie: Movie) => {
@@ -33,8 +37,8 @@ const BookMarkProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-  }, [bookmarks]);
+    set("bookmarks", JSON.stringify(bookmarks));
+  }, [bookmarks, set]);
 
   const isBookmarked = (id: string) => bookmarks.some((b) => b.imdbID === id);
 
