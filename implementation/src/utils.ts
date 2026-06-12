@@ -1,4 +1,4 @@
-type Key = "cart-state" | "bookmarks";
+type Key = "cart-state" | "bookmarks" | "todo-app-state" | "filter";
 
 export const localStorageAction = () => {
   const set = (key: Key, value: string) => localStorage.setItem(key, value);

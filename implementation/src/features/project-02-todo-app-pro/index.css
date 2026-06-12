@@ -1,0 +1,87 @@
+.input-container {
+  position: relative;
+}
+
+.error-text {
+  position: absolute;
+  font-size: smaller;
+  line-height: 15px;
+  color: red;
+}
+
+.input-action-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 20px;
+}
+.todo-item {
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  width: 100%;
+  text-align: start;
+  padding: 0.25rem;
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  color: black;
+}
+
+.tab-container {
+  display: flex;
+  margin: 2rem 0 1rem;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tab-container > div {
+  border: 1px solid gray;
+  padding: 1px 10px;
+}
+
+.tab-container > div:hover {
+  scale: 1.1;
+}
+
+.tab-button {
+  padding: 8px 16px;
+  background: transparent;
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.active-tab {
+  padding: 8px 16px;
+  border: 1px solid black;
+  background: blue;
+  color: white;
+  border-radius: 8px;
+}
+
+.completed-item {
+  text-decoration: line-through;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.todo-action-container {
+  display: flex;
+  gap: 4px;
+}
