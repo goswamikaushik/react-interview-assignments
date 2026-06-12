@@ -39,7 +39,12 @@ const MoviesDetails = () => {
   const { data, isLoading } = movieDetails;
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <div className="flex justify-center mt-52 items-center gap-2">
+        Fetching Movie Details
+        <Spinner />
+      </div>
+    );
   }
 
   if (!data) {

@@ -12,10 +12,7 @@ function App() {
       <Route path={PROJECT_03}>
         <Route index element={<MovieSearch />} />
         <Route path=":imdbId" element={<MovieDetails />} />
-        <Route
-          path={`${PROJECT_03}/${BOOKMARKS}`}
-          element={<BookmarksPage />}
-        />
+        <Route path={`${PROJECT_03}${BOOKMARKS}`} element={<BookmarksPage />} />
       </Route>
     </Routes>
   );
