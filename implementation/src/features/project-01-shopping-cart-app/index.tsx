@@ -3,7 +3,7 @@ import "./index.css";
 import type { Product } from "./type";
 import { useCart } from "../../context/cart/use-cart";
 import { useDebounce } from "../../hooks";
-import ProductItem from "./product-itemt";
+import ProductItem from "./product-item";
 import Loader from "./loader";
 
 const ShoppingCart = () => {
